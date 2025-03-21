@@ -17,12 +17,12 @@ describe('DeleteConfirmDialog', () => {
         open={true}
         onClose={mockOnClose}
         onConfirm={mockOnConfirm}
-      />
+      />,
     );
 
     expect(screen.getByText('Delete Confirmation')).toBeInTheDocument();
     expect(
-      screen.getByText('This action cannot be undone.')
+      screen.getByText('This action cannot be undone.'),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Delete' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
@@ -35,11 +35,11 @@ describe('DeleteConfirmDialog', () => {
         onClose={mockOnClose}
         onConfirm={mockOnConfirm}
         userName="John Doe"
-      />
+      />,
     );
 
     expect(
-      screen.getByText('Are you sure you want to delete user "John Doe"?')
+      screen.getByText('Are you sure you want to delete user "John Doe"?'),
     ).toBeInTheDocument();
   });
 
@@ -49,7 +49,7 @@ describe('DeleteConfirmDialog', () => {
         open={true}
         onClose={mockOnClose}
         onConfirm={mockOnConfirm}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
@@ -62,7 +62,7 @@ describe('DeleteConfirmDialog', () => {
         open={true}
         onClose={mockOnClose}
         onConfirm={mockOnConfirm}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
@@ -76,7 +76,7 @@ describe('DeleteConfirmDialog', () => {
         onClose={mockOnClose}
         onConfirm={mockOnConfirm}
         loading={true}
-      />
+      />,
     );
 
     const deleteButton = screen.getByRole('button', { name: 'Deleting...' });

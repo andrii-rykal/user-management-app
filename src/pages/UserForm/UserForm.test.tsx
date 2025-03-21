@@ -19,7 +19,7 @@ describe('UserForm', () => {
         <BrowserRouter>
           <UserForm />
         </BrowserRouter>
-      </Provider>
+      </Provider>,
     );
   };
 
@@ -60,7 +60,7 @@ describe('UserForm', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Name must be at least 3 characters long')
+        screen.getByText('Name must be at least 3 characters long'),
       ).toBeInTheDocument();
     });
   });
@@ -83,7 +83,7 @@ describe('UserForm', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Invalid phone number format')
+        screen.getByText('Invalid phone number format'),
       ).toBeInTheDocument();
     });
   });

@@ -22,7 +22,7 @@ describe('UserTable', () => {
         onEdit={mockOnEdit}
         onDelete={mockOnDelete}
         loading={false}
-      />
+      />,
     );
 
     expect(screen.getByText('John Doe')).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe('UserTable', () => {
         onEdit={mockOnEdit}
         onDelete={mockOnDelete}
         loading={true}
-      />
+      />,
     );
 
     expect(screen.getByRole('progressbar')).toBeInTheDocument();

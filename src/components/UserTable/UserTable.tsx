@@ -37,7 +37,7 @@ export const UserTable = ({
       filterable: false,
       align: 'center',
       headerAlign: 'center',
-      renderCell: (params) => (
+      renderCell: params => (
         <Fade in={true}>
           <Box>
             <Tooltip title="Edit user">

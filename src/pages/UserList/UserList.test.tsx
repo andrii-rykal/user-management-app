@@ -19,7 +19,7 @@ describe('UserList', () => {
         <BrowserRouter>
           <UserList />
         </BrowserRouter>
-      </Provider>
+      </Provider>,
     );
   };
 
@@ -28,7 +28,7 @@ describe('UserList', () => {
 
     expect(screen.getByText('User Management')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Create User' })
+      screen.getByRole('button', { name: 'Create User' }),
     ).toBeInTheDocument();
   });
 

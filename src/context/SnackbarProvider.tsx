@@ -10,7 +10,7 @@ export const SnackbarProvider = ({ children }: SnackbarProviderProps) => {
 
   const showSnackbar = (
     message: string,
-    severity: SnackbarSeverity = 'success'
+    severity: SnackbarSeverity = 'success',
   ) => {
     setMessage(message);
     setSeverity(severity);
