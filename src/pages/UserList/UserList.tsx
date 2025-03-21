@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, Box, Alert } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchUsers, deleteUser } from '../../store/userSlice';
+import { deleteUser } from '../../store/userSlice';
 import { UserTable } from '../../components/UserTable/UserTable';
 import { DeleteConfirmDialog } from '../../components/DeleteConfirmDialog/DeleteConfirmDialog';
 import { useSnackbar } from '../../hooks/useSnackbar';
@@ -10,32 +10,21 @@ import { useSnackbar } from '../../hooks/useSnackbar';
 export const UserList = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { users, loading, error } = useAppSelector((state) => state.users);
+  const { users, loading, error } = useAppSelector(state => state.users);
   const [userToDelete, setUserToDelete] = useState<{
     id: number;
     name: string;
   } | null>(null);
   const { showSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        await dispatch(fetchUsers()).unwrap();
-      } catch (error: unknown) {
-        console.error('Error loading users:', error);
-        showSnackbar('Error loading users', 'error');
-      }
-    };
-
-    loadUsers();
-  }, [dispatch, showSnackbar]);
+  // Видалено useEffect з fetchUsers
 
   const handleEdit = (id: number) => {
     navigate(`/users/edit/${id}`);
   };
 
   const handleDelete = (id: number) => {
-    const user = users.find((u) => u.id === id);
+    const user = users.find(u => u.id === id);
     if (user) {
       setUserToDelete({ id, name: user.name });
     }

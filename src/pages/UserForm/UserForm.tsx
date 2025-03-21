@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Container,
   Box,
@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createUser, updateUser } from '../../store/userSlice';
+import { createUser, updateUser, selectUserById } from '../../store/userSlice';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { UserFormData } from '../../types/User';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 export const UserForm = () => {
   const { id } = useParams();
@@ -23,8 +23,18 @@ export const UserForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<UserFormData>();
   const [loading, setLoading] = useState(false);
+  const user = useAppSelector(state =>
+    id ? selectUserById(state, Number(id)) : null,
+  );
+
+  useEffect(() => {
+    if (id && user) {
+      reset(user);
+    }
+  }, [id, user, reset]);
 
   const onSubmit = async (data: UserFormData) => {
     setLoading(true);

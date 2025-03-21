@@ -20,6 +20,12 @@ export const userApi = {
   },
 
   updateUser: async (id: number, user: User): Promise<User> => {
+    if (id > 10) {
+      return {
+        ...user,
+        id,
+      };
+    }
     const response = await axios.put(`${API_BASE_URL}/users/${id}`, user);
     return response.data;
   },

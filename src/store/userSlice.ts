@@ -1,6 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, Dispatch } from '@reduxjs/toolkit';
 import { userApi } from '../api/userApi';
 import { User } from '../types/User';
+import { RootState } from './store';
+
+let initialized = false;
+
+export const initializeStore = () => async (dispatch: Dispatch) => {
+  if (!initialized) {
+    initialized = true;
+    await dispatch(fetchUsers());
+  }
+};
 
 interface UserState {
   users: User[];
@@ -27,7 +37,7 @@ export const fetchUsers = createAsyncThunk(
       }
       return rejectWithValue('Failed to load users');
     }
-  }
+  },
 );
 
 export const fetchUserById = createAsyncThunk(
@@ -41,7 +51,7 @@ export const fetchUserById = createAsyncThunk(
       }
       return rejectWithValue('Failed to load user');
     }
-  }
+  },
 );
 
 export const createUser = createAsyncThunk(
@@ -55,7 +65,7 @@ export const createUser = createAsyncThunk(
       }
       return rejectWithValue('Failed to create user');
     }
-  }
+  },
 );
 
 export const updateUser = createAsyncThunk(
@@ -69,7 +79,7 @@ export const updateUser = createAsyncThunk(
       }
       return rejectWithValue('Failed to update user');
     }
-  }
+  },
 );
 
 export const deleteUser = createAsyncThunk(
@@ -84,20 +94,20 @@ export const deleteUser = createAsyncThunk(
       }
       return rejectWithValue('Failed to delete user');
     }
-  }
+  },
 );
 
 const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    clearCurrentUser: (state) => {
+    clearCurrentUser: state => {
       state.currentUser = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchUsers.pending, (state) => {
+      .addCase(fetchUsers.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -117,16 +127,24 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         const index = state.users.findIndex(
-          (user) => user.id === action.payload.id
+          user => user.id === action.payload.id,
         );
         if (index !== -1) {
           state.users[index] = action.payload;
         }
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.users = state.users.filter((user) => user.id !== action.payload);
+        state.users = state.users.filter(user => user.id !== action.payload);
       });
   },
+});
+
+export const selectUserById = (state: RootState, id: number) =>
+  state.users.users.find(user => user.id === id);
+
+export const selectUsers = (state: RootState) => ({
+  users: state.users.users,
+  loading: state.users.loading,
 });
 
 export const { clearCurrentUser } = userSlice.actions;
