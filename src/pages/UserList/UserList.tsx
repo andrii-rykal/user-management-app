@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { deleteUser } from '../../store/userSlice';
 import { UserTable } from '../../components/UserTable/UserTable';
 import { DeleteConfirmDialog } from '../../components/DeleteConfirmDialog/DeleteConfirmDialog';
-import { useSnackbar } from '../../hooks/useSnackbar';
+import { showSnackbar } from '../../store/snackbarSlice';
 
 export const UserList = () => {
   const navigate = useNavigate();
@@ -15,9 +15,6 @@ export const UserList = () => {
     id: number;
     name: string;
   } | null>(null);
-  const { showSnackbar } = useSnackbar();
-
-  // Видалено useEffect з fetchUsers
 
   const handleEdit = (id: number) => {
     navigate(`/users/edit/${id}`);
@@ -34,11 +31,17 @@ export const UserList = () => {
     if (userToDelete) {
       try {
         await dispatch(deleteUser(userToDelete.id)).unwrap();
-        showSnackbar('User successfully deleted');
+        dispatch(showSnackbar({ message: 'User successfully deleted' }));
         setUserToDelete(null);
       } catch (error: unknown) {
-        console.error('Error deleting user:', error);
-        showSnackbar('Error deleting user', 'error');
+        const errorMessage =
+          error instanceof Error ? error.message : 'Error deleting user';
+        dispatch(
+          showSnackbar({
+            message: errorMessage,
+            severity: 'error',
+          }),
+        );
       }
     }
   };

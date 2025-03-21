@@ -43,6 +43,19 @@ describe('DeleteConfirmDialog', () => {
     ).toBeInTheDocument();
   });
 
+  it('renders dialog with user name', () => {
+    render(
+      <DeleteConfirmDialog
+        open={true}
+        onClose={mockOnClose}
+        onConfirm={mockOnConfirm}
+        userName="John Doe"
+      />,
+    );
+
+    expect(screen.getByText(/John Doe/)).toBeInTheDocument();
+  });
+
   it('calls onClose when cancel button is clicked', () => {
     render(
       <DeleteConfirmDialog
@@ -67,6 +80,19 @@ describe('DeleteConfirmDialog', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
     expect(mockOnConfirm).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls onConfirm when delete button clicked', () => {
+    render(
+      <DeleteConfirmDialog
+        open={true}
+        onClose={mockOnClose}
+        onConfirm={mockOnConfirm}
+      />,
+    );
+
+    fireEvent.click(screen.getByText('Delete'));
+    expect(mockOnConfirm).toHaveBeenCalled();
   });
 
   it('disables buttons and shows loading state', () => {

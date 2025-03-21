@@ -1,3 +1,57 @@
+# User Management App
+
+A React application for managing users with CRUD operations.
+
+## Installation
+
+```bash
+npm install
+```
+
+## Running the Project
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+## Running Tests
+
+```bash
+npm test
+```
+
+To see test coverage:
+
+```bash
+npm run test:coverage
+```
+
+## Project Structure
+
+```
+src/
+├── api/          # API layer
+├── components/   # Reusable UI components
+├── context/      # React context providers
+├── hooks/        # Custom React hooks
+├── pages/        # Page components
+├── store/        # Redux store and slices
+├── types/        # TypeScript type definitions
+└── __tests__/    # Test files
+```
+
+## Technologies Used
+
+- React
+- TypeScript
+- Redux Toolkit
+- Material UI
+- React Router
+- React Hook Form
+- Vitest & React Testing Library
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -28,15 +82,15 @@ export default tseslint.config({
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default tseslint.config({
   plugins: {
@@ -50,5 +104,5 @@ export default tseslint.config({
     ...reactX.configs['recommended-typescript'].rules,
     ...reactDom.configs.recommended.rules,
   },
-})
+});
 ```

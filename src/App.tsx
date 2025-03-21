@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { UserForm } from './pages/UserForm/UserForm';
 import { UserList } from './pages/UserList/UserList';
-import { SnackbarProvider } from './context';
+import { SnackbarContainer } from './components/SnackbarContainer';
 
 const theme = createTheme({
   palette: {
@@ -24,18 +24,17 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SnackbarProvider>
-        <Router>
-          <Container>
-            <Routes>
-              <Route path="/" element={<UserList />} />
-              <Route path="/users" element={<UserList />} />
-              <Route path="/users/new" element={<UserForm />} />
-              <Route path="/users/edit/:id" element={<UserForm />} />
-            </Routes>
-          </Container>
-        </Router>
-      </SnackbarProvider>
+      <Router>
+        <Container>
+          <Routes>
+            <Route path="/" element={<UserList />} />
+            <Route path="/users" element={<UserList />} />
+            <Route path="/users/new" element={<UserForm />} />
+            <Route path="/users/edit/:id" element={<UserForm />} />
+          </Routes>
+          <SnackbarContainer />
+        </Container>
+      </Router>
     </ThemeProvider>
   );
 }

@@ -10,15 +10,15 @@ import {
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createUser, updateUser, selectUserById } from '../../store/userSlice';
-import { useSnackbar } from '../../hooks/useSnackbar';
 import { UserFormData } from '../../types/User';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { formValidation } from './UserForm.constants';
+import { showSnackbar } from '../../store/snackbarSlice';
 
 export const UserForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { showSnackbar } = useSnackbar();
   const {
     register,
     handleSubmit,
@@ -41,15 +41,19 @@ export const UserForm = () => {
     try {
       if (id) {
         await dispatch(updateUser({ id: Number(id), user: data })).unwrap();
-        showSnackbar('User successfully updated');
+        dispatch(showSnackbar({ message: 'User successfully updated' }));
       } else {
         await dispatch(createUser(data)).unwrap();
-        showSnackbar('User successfully created');
+        dispatch(showSnackbar({ message: 'User successfully created' }));
       }
       navigate('/users');
     } catch (error: unknown) {
-      console.error('Failed to save user:', error);
-      showSnackbar('Error saving user. Please try again later.', 'error');
+      dispatch(
+        showSnackbar({
+          message: `Error saving user: ${error instanceof Error ? error.message : 'Please try again later.'}`,
+          severity: 'error',
+        }),
+      );
     } finally {
       setLoading(false);
     }
@@ -67,13 +71,7 @@ export const UserForm = () => {
             <TextField
               fullWidth
               label="Name"
-              {...register('name', {
-                required: 'Name is required',
-                minLength: {
-                  value: 3,
-                  message: 'Name must be at least 3 characters long',
-                },
-              })}
+              {...register('name', formValidation.name)}
               error={!!errors.name}
               helperText={errors.name?.message}
               disabled={loading}
@@ -83,13 +81,7 @@ export const UserForm = () => {
               fullWidth
               label="Email"
               type="email"
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Invalid email format',
-                },
-              })}
+              {...register('email', formValidation.email)}
               error={!!errors.email}
               helperText={errors.email?.message}
               disabled={loading}
@@ -98,13 +90,7 @@ export const UserForm = () => {
             <TextField
               fullWidth
               label="Phone"
-              {...register('phone', {
-                pattern: {
-                  value:
-                    /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
-                  message: 'Invalid phone number format',
-                },
-              })}
+              {...register('phone', formValidation.phone)}
               error={!!errors.phone}
               helperText={errors.phone?.message}
               disabled={loading}
