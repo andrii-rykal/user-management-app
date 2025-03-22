@@ -2,6 +2,10 @@
 
 Simple and efficient user management system built with React and TypeScript.
 
+## Demo
+
+[Live Demo](https://andrii-rykal.github.io/user-management-app/)
+
 ## Key Features
 
 - User CRUD operations
