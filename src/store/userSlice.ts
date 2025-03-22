@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { userApi } from '../api/userApi';
 import { User } from '../types/User';
-import { RootState } from './store';
+import { RootState, AppDispatch } from './store';
 
 let initialized = false;
 
-export const initializeStore = () => async (dispatch: Dispatch) => {
+export const initializeStore = () => async (dispatch: AppDispatch) => {
   if (!initialized) {
     initialized = true;
     await dispatch(fetchUsers());

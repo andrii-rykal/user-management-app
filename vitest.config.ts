@@ -10,12 +10,19 @@ export default defineConfig({
     },
   },
   test: {
+    globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
-    globals: true,
+    exclude: ['**/node_modules/**', '**/dist/**'],
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+    },
     testTimeout: 10000,
-    maxThreads: 1,
-    minThreads: 1,
+    poolOptions: {
+      threads: {
+        singleThread: true,
+      },
+    },
     isolate: true,
     reporters: ['default'],
     onConsoleLog: () => false,

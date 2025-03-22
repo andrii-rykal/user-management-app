@@ -1,14 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './store/userSlice';
 import snackbarReducer from './store/snackbarSlice';
 import App from './App';
-
-vi.mock('./context', () => ({
-  SnackbarProvider: ({ children }: { children: React.ReactNode }) => children,
-}));
 
 vi.mock('./pages/UserList/UserList', () => ({
   UserList: () => <div data-testid="user-list">User List Component</div>,

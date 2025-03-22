@@ -1,31 +1,50 @@
-# User Management App
+# User Management Application
 
-A React application for managing users with CRUD operations.
+Simple and efficient user management system built with React and TypeScript.
+
+## Key Features
+
+- User CRUD operations
+- Form validation
+- Toast notifications
+- Responsive design
+- Comprehensive test coverage
 
 ## Installation
 
 ```bash
+# Clone repository
+git clone <repository-url>
+cd user-management-app
+
+# Install dependencies
 npm install
 ```
 
-## Running the Project
+## Running the Application
 
 ```bash
+# Development mode
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-The application will be available at `http://localhost:5173`
-
-## Running Tests
+## Testing
 
 ```bash
+# Run tests
 npm test
-```
 
-To see test coverage:
-
-```bash
+# Run tests with coverage
 npm run test:coverage
+
+# Watch mode
+npm test -- --watch
 ```
 
 ## Project Structure
