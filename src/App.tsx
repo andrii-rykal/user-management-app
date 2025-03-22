@@ -5,8 +5,8 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
-import { UserForm } from './pages/UserForm/UserForm';
-import { UserList } from './pages/UserList/UserList';
+import { UserForm } from './pages/UserForm';
+import { UserList } from './pages/UserList';
 import { SnackbarContainer } from './components/SnackbarContainer';
 
 const theme = createTheme({
