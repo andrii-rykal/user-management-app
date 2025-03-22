@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  base: '/user-management-app/',
+  base: process.env.NODE_ENV === 'production' ? '/user-management-app/' : '/',
   plugins: [react()],
   resolve: {
     alias: {

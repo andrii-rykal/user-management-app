@@ -21,10 +21,15 @@ const theme = createTheme({
 });
 
 function App() {
+  // const basename = import.meta.env.PROD ? '/user-management-app' : '/';
+  // or alternatively:
+  const basename =
+    process.env.NODE_ENV === 'production' ? '/user-management-app' : '/';
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
+      <Router basename={basename}>
         <Container>
           <Routes>
             <Route path="/" element={<UserList />} />
